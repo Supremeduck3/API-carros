@@ -15,8 +15,16 @@ const getCarrosByid = (req,  res) => {
 
     if(!carro){
         res.status(404).json({
-            
+            sucess:false,
+            messsage:`Não existe barbie com esse id ${id}`
         })
     }
+    res.status(200).json({
+        total:carros.length,
+        carros:carros
+    })
+}
+const createCarro = (req, res)=>{
+    const{}
 }
 export {getAllcarros, getCarrosByid}
