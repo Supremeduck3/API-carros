@@ -1,4 +1,3 @@
-import { parse } from "dotenv";
 import dados from "../models/dados.js";
 const { carros } = dados;
 
@@ -56,7 +55,7 @@ const deleteCarro = (req, res) => {
       message: "O id deve ser valido",
     });
   }
-  const carroRemovido = carros.find((c) => c.id === id);
+  const carroRemovido = carros.find((carro) => carro.id === id);
   if (!carroRemovido) {
     return res.status(404).json({
       sucess: false,
@@ -81,25 +80,25 @@ const updateCarros = (req, res) => {
             message:"O id deve ser um número"
         })
     }
-    const carroExiste = carros.find(carros.id === idParaEditar);
+    const carroExiste = carros.find( carro => carro.id === idParaEditar);
     if(!carroExiste){
         return res.status(404).json({
             success: false,
             message: `Nenhum carro com o id: ${id} não foi encontrada`
         })
     }
-const carrosAtualizados = carros.map(c=> c.id === idParaEditar?{
-    ...carros,
+const carrosAtualizados = carros.map(carro=> carro.id === idParaEditar?{
+    ...carro,
     ...(nome && {nome}),
     ...(modelo && {modelo}),
     ...(ano && {ano}),
     ...(qtdevitorias && {qtdevitorias}),
     ...(cor && {cor})
 }
-:carros
+:carro
 );
 carros.splice(0,carros.length, ...carrosAtualizados);
-const carroEditado = carros.find(c => c.id === idParaEditar)
+const carroEditado = carros.find(carro => carro.id === idParaEditar)
 res.status(200).json({
     sucess: true,
     message: "Os dados foram atualizados com sucesso",
